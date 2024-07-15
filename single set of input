@@ -1,0 +1,33 @@
+import numpy as np
+import matplotlib.pyplot as plt
+
+def read_coefficients(file_path):
+    with open(file_path, "r") as file:
+        line = file.readline().strip()
+        coefficients = [float(coef) for coef in line.split(",")]
+        return coefficients
+
+def quadratic(time, coefficients):
+    a, b, c = coefficients
+    temperature = a * (time**2) + b * time + c
+    return temperature
+
+def main():
+    # Read coefficients from a file
+    file_path = "coefficients.txt"
+    coefficients = read_coefficients(file_path)
+
+    # Time values
+    time_values = np.linspace(0, 10, 50)
+    temp_values = quadratic(time_values, coefficients)
+
+    # Plotting
+    plt.plot(time_values, temp_values, label=f'Temperature (coefficients: {coefficients})')
+    plt.xlabel('Time')
+    plt.ylabel('Temperature')
+    plt.title('Quadratic Temperature over Time')
+    plt.legend()
+    plt.show()
+
+if __name__ == "__main__":
+    main()
