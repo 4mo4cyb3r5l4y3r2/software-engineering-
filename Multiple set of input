@@ -1,0 +1,33 @@
+import numpy as np
+import seaborn as sns
+import matplotlib.pyplot as plt
+
+def read_coefficients(file_path):
+    with open(file_path, "r") as file:
+        content = file.readlines()
+        coefficients = [line.strip().split(",") for line in content]
+        return [[float(coef) for coef in line] for line in coefficients]
+
+def quadratic(time, coefficients):
+    a, b, c = coefficients
+    temperature = a * (time**2) + b * time + c
+    return temperature
+
+def main():
+    coefficients_list = read_coefficients("File2.txt")
+
+    for coefficients in coefficients_list:
+        time_values = np.linspace(0, 10, 50)
+        temp_values = quadratic(time_values, coefficients)
+
+        sns.set_style("darkgrid")
+        plt.plot(time_values, temp_values, label=f'Temperature (coefficients: {coefficients})')
+
+    plt.xlabel('Time')
+    plt.ylabel('Temperature')
+    plt.title('Quadratic Temperature over Time')
+    plt.legend(["set1[34,56,1]","set2[3.4,5.6,7]","set3[0.1,4.0,3]"])
+    plt.show()
+
+if __name__ == "__main__":
+    main()
