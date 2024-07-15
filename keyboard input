@@ -1,0 +1,28 @@
+import matplotlib.pyplot as plt
+import numpy as np
+
+def quadratic_temperature_model(time, a, b, c):
+    temperature = a * (time ** 2) + b * time + c
+    return temperature
+
+while True:
+    try:
+        a = float(input("Enter the coefficient for the quadratic term (a): "))
+        b = float(input("Enter the coefficient for the linear term (b): "))
+        c = float(input("Enter the constant term (c): "))
+        break  
+    except ValueError:
+        print("Invalid input. Please enter numeric values.")
+
+time_values = np.arange(0, 51, 1)
+
+
+temperature_values = quadratic_temperature_model(time_values, a, b, c)
+
+plt.plot(time_values, temperature_values, label='Temperature Model')
+plt.xlabel('Time (minutes)')
+plt.ylabel('Temperature (Celsius)')
+plt.title(f'Quadratic Temperature Model: {a:.2f}t^2 + {b:.2f}t + {c:.2f}')
+plt.legend()
+plt.grid(True)
+plt.show()
